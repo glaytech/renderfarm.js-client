@@ -1,8 +1,8 @@
 var client = new RFJS.Client({
     apiKey: "75f5-4d53-b0f4",
-    protocol: "http",
-    host: "localhost",
-    port: 8000,
+    protocol: "https",
+    host: "api2.renderfarmjs.com",
+    port: 443,
 });
 
 var workspaceGuid = "55a0bd33-9f15-4bc0-a482-17899eb67af3";
@@ -71,148 +71,184 @@ function initScene() {
         window.demo.controls = controls;
     }
 
-    var spotLight = new THREE.SpotLight(0xffffff);
-    spotLight.name = "SpotLight1";
-    spotLight.position.set(10, 40, 10);
-    spotLight.target.position.set(0, 0, 0);
-    spotLight.angle = Math.PI / 10;
+    var ambientLight = new THREE.AmbientLight( 0x404040 )
+    scene.add( ambientLight );
 
-    spotLight.castShadow = true;
-    spotLight.shadow.bias = 1e-6;
-    spotLight.shadow.mapSize.width = 512;
-    spotLight.shadow.mapSize.height = 512;
+    const directionalLight = new THREE.DirectionalLight( 0xdfebff, 2 );
+    scene.add( directionalLight );
 
-    spotLight.shadow.camera.near = 15;
-    spotLight.shadow.camera.far = 55;
-    spotLight.shadow.camera.fov = 360 * spotLight.angle / Math.PI;
+    // var spotLight = new THREE.SpotLight(0xffffff);
+    // spotLight.name = "SpotLight1";
+    // spotLight.position.set(10, 40, 10);
+    // spotLight.target.position.set(0, 0, 0);
+    // spotLight.angle = Math.PI / 10;
 
-    scene.add(spotLight);
-    window.demo.spotLight = spotLight;
+    // spotLight.castShadow = true;
+    // spotLight.shadow.bias = 1e-6;
+    // spotLight.shadow.mapSize.width = 512;
+    // spotLight.shadow.mapSize.height = 512;
 
-    var helper = new THREE.CameraHelper(spotLight.shadow.camera);
+    // spotLight.shadow.camera.near = 15;
+    // spotLight.shadow.camera.far = 55;
+    // spotLight.shadow.camera.fov = 360 * spotLight.angle / Math.PI;
+
+    // scene.add(spotLight);
+    // window.demo.spotLight = spotLight;
+
+    //var helper = new THREE.CameraHelper(spotLight.shadow.camera);
     // scene.add( helper );
 
-    var gridHelper = new THREE.GridHelper(4, 4);
-    scene.add(gridHelper);
+    // var gridHelper = new THREE.GridHelper(4, 4);
+    // scene.add(gridHelper);
 
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+    // var geometry = new THREE.BoxGeometry(1, 1, 1);
+    // geometry = new THREE.BufferGeometry().fromGeometry(geometry);
 
-    var materialWhite = new THREE.MeshPhongMaterial({
-        name: "WhiteGlass",
-        color: 0xffffff,
-        transparent: false,
-        opacity: 0.95,
-    });
+    // var materialWhite = new THREE.MeshPhongMaterial({
+    //     name: "WhiteGlass",
+    //     color: 0xffffff,
+    //     transparent: false,
+    //     opacity: 0.95,
+    // });
 
-    var materialRed = new THREE.MeshPhongMaterial({
-        name: "RedGlass",
-        color: 0xff0000,
-        transparent: false,
-        opacity: 0.95,
-    });
+    // var materialRed = new THREE.MeshPhongMaterial({
+    //     name: "RedGlass",
+    //     color: 0xff0000,
+    //     transparent: false,
+    //     opacity: 0.95,
+    // });
 
-    var materialGreen = new THREE.MeshPhongMaterial({
-        name: "GreenGlass",
-        color: 0x00ff00,
-        transparent: false,
-        opacity: 0.95
-    });
+    // var materialGreen = new THREE.MeshPhongMaterial({
+    //     name: "GreenGlass",
+    //     color: 0x00ff00,
+    //     transparent: false,
+    //     opacity: 0.95
+    // });
 
-    var materialBlue = new THREE.MeshPhongMaterial({
-        name: "BlueGlass",
-        color: 0x0000ff,
-        transparent: false,
-        opacity: 0.95,
-    });
+    // var materialBlue = new THREE.MeshPhongMaterial({
+    //     name: "BlueGlass",
+    //     color: 0x0000ff,
+    //     transparent: false,
+    //     opacity: 0.95,
+    // });
 
-    var cube = new THREE.Mesh(geometry, materialWhite);
-    cube.name = "Box0";
-    cube.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.5, 0));
-    cube.castShadow = true;
-    cube.receiveShadow = false;
-    scene.add(cube);
+    // var cube = new THREE.Mesh(geometry, materialWhite);
+    // cube.name = "Box0";
+    // cube.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.5, 0));
+    // cube.castShadow = true;
+    // cube.receiveShadow = false;
+    // scene.add(cube);
 
-    var loader = new THREE.FontLoader();
+    // var loader = new THREE.FontLoader();
 
-    loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
+    // loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
 
-        let textGeometry = new THREE.TextGeometry('Hello three.js!', {
-            font: font,
-            size: 1.5,
-            height: 0.5,
-            curveSegments: 1,
-            bevelEnabled: true,
-            bevelThickness: 0.02,
-            bevelSize: 0.01,
-            bevelSegments: 1
-        });
-        textGeometry = new THREE.BufferGeometry().fromGeometry(textGeometry);
+    //     let textGeometry = new THREE.TextGeometry('Hello three.js!', {
+    //         font: font,
+    //         size: 1.5,
+    //         height: 0.5,
+    //         curveSegments: 1,
+    //         bevelEnabled: true,
+    //         bevelThickness: 0.02,
+    //         bevelSize: 0.01,
+    //         bevelSegments: 1
+    //     });
+    //     textGeometry = new THREE.BufferGeometry().fromGeometry(textGeometry);
 
-        var text = new THREE.Mesh(textGeometry, materialWhite);
-        text.name = "Text";
-        text.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-        text.applyMatrix(new THREE.Matrix4().makeTranslation(-5.5, 0, 2.1));
-        text.castShadow = true;
-        text.receiveShadow = false;
-        scene.add(text);
-    });
+    //     var text = new THREE.Mesh(textGeometry, materialWhite);
+    //     text.name = "Text";
+    //     text.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
+    //     text.applyMatrix(new THREE.Matrix4().makeTranslation(-5.5, 0, 2.1));
+    //     text.castShadow = true;
+    //     text.receiveShadow = false;
+    //     scene.add(text);
+    // });
 
-    var cubex = new THREE.Mesh(geometry, materialRed);
-    cubex.name = "BoxX";
-    cubex.applyMatrix(new THREE.Matrix4().makeTranslation(3, 0, 0));
-    cubex.castShadow = true;
-    cubex.receiveShadow = false;
-    cube.add(cubex);
+    // var cubex = new THREE.Mesh(geometry, materialRed);
+    // cubex.name = "BoxX";
+    // cubex.applyMatrix(new THREE.Matrix4().makeTranslation(3, 0, 0));
+    // cubex.castShadow = true;
+    // cubex.receiveShadow = false;
+    // cube.add(cubex);
 
-    var cubey = new THREE.Mesh(geometry, materialGreen);
-    cubey.name = "BoxY";
-    cubey.applyMatrix(new THREE.Matrix4().makeTranslation(-3, 3, 0));
-    cubey.castShadow = true;
-    cubey.receiveShadow = false;
-    cubex.add(cubey);
+    // var cubey = new THREE.Mesh(geometry, materialGreen);
+    // cubey.name = "BoxY";
+    // cubey.applyMatrix(new THREE.Matrix4().makeTranslation(-3, 3, 0));
+    // cubey.castShadow = true;
+    // cubey.receiveShadow = false;
+    // cubex.add(cubey);
 
-    var cubez = new THREE.Mesh(geometry, materialBlue);
-    cubez.name = "BoxZ";
-    cubez.applyMatrix(new THREE.Matrix4().makeTranslation(0, -3, 3));
-    cubez.castShadow = true;
-    cubez.receiveShadow = false;
-    cubey.add(cubez);
-    // =============
+    // var cubez = new THREE.Mesh(geometry, materialBlue);
+    // cubez.name = "BoxZ";
+    // cubez.applyMatrix(new THREE.Matrix4().makeTranslation(0, -3, 3));
+    // cubez.castShadow = true;
+    // cubez.receiveShadow = false;
+    // cubey.add(cubez);
+    // // =============
 
-    var roomGeometry = new THREE.BoxGeometry(100, 80, 100);
-    // invert the geometry on the x-axis so that all of the faces point inward
-    roomGeometry.scale(- 1, 1, 1);
-    roomGeometry = new THREE.BufferGeometry().fromGeometry(roomGeometry);
+    // var roomGeometry = new THREE.BoxGeometry(100, 80, 100);
+    // // invert the geometry on the x-axis so that all of the faces point inward
+    // roomGeometry.scale(- 1, 1, 1);
+    // roomGeometry = new THREE.BufferGeometry().fromGeometry(roomGeometry);
 
-    var roomMaterial = new THREE.MeshBasicMaterial({
-        color: 0xA9A0A2
-    });
+    // var roomMaterial = new THREE.MeshBasicMaterial({
+    //     color: 0xA9A0A2
+    // });
 
-    let roomMesh = new THREE.Mesh(roomGeometry, roomMaterial);
-    roomMesh.name = "Room001";
-    roomMesh.applyMatrix(new THREE.Matrix4().makeTranslation(0, 39.9, 0));
-    roomMesh.castShadow = false;
-    roomMesh.receiveShadow = true;
-    // scene.add( roomMesh );
+    // let roomMesh = new THREE.Mesh(roomGeometry, roomMaterial);
+    // roomMesh.name = "Room001";
+    // roomMesh.applyMatrix(new THREE.Matrix4().makeTranslation(0, 39.9, 0));
+    // roomMesh.castShadow = false;
+    // roomMesh.receiveShadow = true;
+    // // scene.add( roomMesh );
 
-    var planeGeometry = new THREE.PlaneGeometry(15, 15, 1);
-    planeGeometry = new THREE.BufferGeometry().fromGeometry(planeGeometry);
-    var material = new THREE.MeshPhongMaterial({
-        name: "Floor",
-        color: 0xf0ffff,
-        transparent: true,
-        opacity: 0.5,
-        side: THREE.DoubleSide
-    });
+    // var planeGeometry = new THREE.PlaneGeometry(15, 15, 1);
+    // planeGeometry = new THREE.BufferGeometry().fromGeometry(planeGeometry);
+    // var material = new THREE.MeshPhongMaterial({
+    //     name: "Floor",
+    //     color: 0xf0ffff,
+    //     transparent: true,
+    //     opacity: 0.5,
+    //     side: THREE.DoubleSide
+    // });
 
-    var plane = new THREE.Mesh(planeGeometry, material);
-    plane.name = "Plane0";
-    plane.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-    plane.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0, 0));
-    plane.castShadow = false;
-    plane.receiveShadow = true;
-    scene.add(plane);
+    // var plane = new THREE.Mesh(planeGeometry, material);
+    // plane.name = "Plane0";
+    // plane.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
+    // plane.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0, 0));
+    // plane.castShadow = false;
+    // plane.receiveShadow = true;
+    // scene.add(plane);
+
+    const gltfl = new THREE.GLTFLoader();
+    gltfl.load(
+        // resource URL
+        'models/textScene.gltf',
+        // called when the resource is loaded
+        function ( gltf ) {
+    
+            scene.add( gltf.scene );
+    
+            gltf.animations; // Array<THREE.AnimationClip>
+            gltf.scene; // THREE.Group
+            gltf.scenes; // Array<THREE.Group>
+            gltf.cameras; // Array<THREE.Camera>
+            gltf.asset; // Object
+    
+        },
+        // called while loading is progressing
+        function ( xhr ) {
+    
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    
+        },
+        // called when loading has errors
+        function ( error ) {
+    
+            console.log( 'An error happened' );
+    
+        }
+    );
 
     var animate = function () {
         requestAnimationFrame(animate);
